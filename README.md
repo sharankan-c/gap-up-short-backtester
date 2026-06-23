@@ -68,4 +68,15 @@ The empirical data confirms that a genuine structural edge exists. A Profit Fact
 
 ---
 
+---
+
+## Ongoing Development & Version History
+
+### Release v2.0 Updates
+* **Secondary Breakout Filter:** Added the `USE_SECOND_FILTER` toggle and `gap_group` tracking to block short entries if the execution price stays below the highest high printed since the gap.
+* **Dynamic Stalking Window:** Introduced a `stalking_period = 5` day loop to look for valid entry setups over multiple days following the initial gap catalyst.
+* **Extended Historical Sourcing:** Increased the Interactive Brokers data download window from 9 months (`"9 M"`) to 2 years (`"2 Y"`) to test the strategy across a larger market sample.
+* **Holding Period Adjustments:** Reduced the default strategic `HOLDING_PERIOD` from 5 days to 3 days (with testing variants shifted from 5 to 3 days).
+* **Custom Drawdown Metric:** Modified the Max Drawdown calculation using a custom `DD` metric derived from cumulative chronological PnL and trade risk exposure.
+
 <small>*Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author.*</small>
