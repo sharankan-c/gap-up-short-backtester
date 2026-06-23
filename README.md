@@ -23,6 +23,10 @@ The following metrics were cross-examined:
 
 > **Conclusion:** No statistically significant linear relationships emerged across any of these individual variables. Macroscopic correlations failed to yield a simple linear edge.
 
+* **Dynamic Gap-Anchored Stop Loss (New in v3):** Risk boundaries are no longer calculated as a fixed percentage away from the entry price. The engine now calculates stop loss thresholds (`sl_price`) relative to the structural peak printed since the catalyst event occurred:
+  $$\text{Stop Loss Price} = \text{max\_high\_since\_gap} \times (1 + \text{stop\_loss\_pct})$$
+* **Structural Floor Ingestion:** Added tracking for absolute localized baseline metrics (`min_low_since_gap`) tied to specific breakout horizons.
+
 ---
 
 ## 3. Parameter Tuning & Optimization Framework
@@ -78,5 +82,7 @@ The empirical data confirms that a genuine structural edge exists. A Profit Fact
 * **Extended Historical Sourcing:** Increased the Interactive Brokers data download window from 9 months (`"9 M"`) to 2 years (`"2 Y"`) to test the strategy across a larger market sample.
 * **Holding Period Adjustments:** Reduced the default strategic `HOLDING_PERIOD` from 5 days to 3 days (with testing variants shifted from 5 to 3 days).
 * **Custom Drawdown Metric:** Modified the Max Drawdown calculation using a custom `DD` metric derived from cumulative chronological PnL and trade risk exposure.
+
+ 
 
 <small>*Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author.*</small>
