@@ -5,7 +5,7 @@ An event-driven quantitative backtesting framework in Python designed to evaluat
 ## Systematic Backtesting: Shorting Extreme Overnight Gap-Ups
 
 ### 1. Methodology & Data Collection
-The core objective of this backtest was to determine whether extreme overnight gap-ups serve as a statistically viable short setup within the recent market regime. To isolate a potential edge, US equities listed on the NASDAQ and NYSE were tracked over a six-month period, focusing exclusively on high-momentum catalysts where a stock opened $\ge 15\%$ higher than its prior day's close.
+The core objective of this backtest was to determine whether extreme overnight gap-ups serve as a statistically viable short setup within the recent market regime. To isolate a potential edge, US equities listed on the NASDAQ and NYSE were tracked over a six-month period, focusing exclusively on high-momentum catalysts where a stock opened $\ge 15%$ higher than its prior day's close.
 
 The infrastructure was built using a three-step pipeline:
 * **Data Ingestion:** Automated extraction of daily historical screener data directly from FinViz via a Python script to capture all equities hitting the 15% threshold.
