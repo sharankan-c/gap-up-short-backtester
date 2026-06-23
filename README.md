@@ -8,8 +8,8 @@ The core objective of this backtest was to determine whether extreme overnight g
 
 The infrastructure was built using a three-step pipeline:
 * **Data Ingestion:** Automated extraction of daily historical screener data directly from FinViz via a Python script to capture all equities hitting the 10% threshold.
-* **Storage:** Aggregation of raw data into a local **DuckDB** database to establish a high-performance foundation for query execution.
-* **Historical Sourcing:** Programmatic connection to the **Interactive Brokers API** to retrieve high-resolution historical price data for each screened ticker, ensuring institutional-grade accuracy.
+* **Storage:** The raw scraped data is loaded directly into a pandas DataFrame in memory for immediate filtering and manipulation.
+* **Historical Sourcing:** Programmatic connection to the **Interactive Brokers API** to retrieve historical price data for each screened ticker, ensuring institutional-grade accuracy.
 
 ---
 
@@ -22,10 +22,6 @@ The following metrics were cross-examined:
 * **Temporal Dynamics:** Cumulative return tracking across various holding periods to isolate the optimal exit window.
 
 > **Conclusion:** No statistically significant linear relationships emerged across any of these individual variables. Macroscopic correlations failed to yield a simple linear edge.
-
-* **Dynamic Gap-Anchored Stop Loss (New in v3):** Risk boundaries are no longer calculated as a fixed percentage away from the entry price. The engine now calculates stop loss thresholds (`sl_price`) relative to the structural peak printed since the catalyst event occurred:
-  $$\text{Stop Loss Price} = \text{max\_high\_since\_gap} \times (1 + \text{stop\_loss\_pct})$$
-* **Structural Floor Ingestion:** Added tracking for absolute localized baseline metrics (`min_low_since_gap`) tied to specific breakout horizons.
 
 ---
 
@@ -66,7 +62,7 @@ To avoid curve-fitting, parameter permutations were evaluated against a comprehe
 ## 5. Key Analytical Takeaways & Future Optimization
 The empirical data confirms that a genuine structural edge exists. A Profit Factor of 1.25 and a positive total return of +8.39R demonstrate an underlying short bias. However, the strategy in its current form is highly inefficient for live execution and requires refinement across three critical vectors:
 
-* **Sample Size & Regime Limitations:** A sample of 195 trades over 6 months is statistically thin and vulnerable to regime bias. To prove structural permanence, the backtest window must be expanded to **3–5 years** to capture a multi-thousand trade sample across diverse market cycles.
+* **Sample Size & Regime Limitations:** A sample of 195 trades over 6 months is statistically thin and vulnerable to regime bias.
 * **Time-Dominant Behavior & Filtering:** Since **92.8%** of positions were liquidated via the time-based exit rule, the setup frequently traps capital in non-trending, choppy environments. Introducing structural filters—such as Relative Volume (RVOL) thresholds or separating fundamental catalysts (e.g., earnings surprises) from emotional ones (e.g., low-float retail FOMO)—is necessary to eliminate low-expectancy trades.
 * **Risk Efficiency & Tighter Management:** The maximum drawdown (-$6,555.32) relative to total profit ($8,392.46) highlights substantial equity curve variance. Combined with a tight average expectancy of 0.04R, the initial risk boundaries are too wide. Tightening stop losses to structural intraday levels—such as the opening 5-minute High of Day (HOD)—and implementing conditional time-stops to exit early if a fade stalls will protect capital and scale the R:R ratio.
 
@@ -74,14 +70,6 @@ The empirical data confirms that a genuine structural edge exists. A Profit Fact
 
 ---
 
-## Ongoing Development & Version History
-
-### Release v2.0 Updates
-* **Secondary Breakout Filter:** Added the `USE_SECOND_FILTER` toggle and `gap_group` tracking to block short entries if the execution price stays below the highest high printed since the gap.
-* **Dynamic Stalking Window:** Introduced a `stalking_period = 5` day loop to look for valid entry setups over multiple days following the initial gap catalyst.
-* **Extended Historical Sourcing:** Increased the Interactive Brokers data download window from 9 months (`"9 M"`) to 2 years (`"2 Y"`) to test the strategy across a larger market sample.
-* **Holding Period Adjustments:** Reduced the default strategic `HOLDING_PERIOD` from 5 days to 3 days (with testing variants shifted from 5 to 3 days).
-* **Custom Drawdown Metric:** Modified the Max Drawdown calculation using a custom `DD` metric derived from cumulative chronological PnL and trade risk exposure.
 
  
 
