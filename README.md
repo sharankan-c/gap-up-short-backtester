@@ -73,13 +73,36 @@ The empirical data confirms that a genuine structural edge exists. A Profit Fact
 
 ---
 
-## Appendix: Update (Juni 2026) — Version 2 Backtest
-## Update: Version 2 Backtest Results & Structural Analysis
+## Update: Version 2 Backtest Results (Stalking Window vs. Increased Gap Threshold)
 
-* A second iteration (Version 2) of the backtester was deployed to evaluate the impact of **modified holding periods** and **localized price action structural constraints** on execution quality. The objective was to filter out low-probability entries based on immediate post-gap structural boundaries.
-
-* The empirical results indicate that these additional filters introduced significant structural drag, effectively degrading the strategy's edge.
+* A second iteration (Version 2) of the backtester was deployed to evaluate a more aggressive macro setup: **adjusting the initial gap threshold upward** to isolate more extreme overnight extensions, paired with a defined **stalking window for entries** and modified holding periods.
+* Separate, isolated testing confirmed that an increased gap threshold shows strong standalone promise and upside potential. However, when combined with the stalking window—designed to delay execution and filter entry based on immediate post-open structural boundaries—the results deteriorated heavily.
+* The empirical data indicates that while the higher gap criteria is structurally viable, the filtering constraints of the stalking window introduced severe execution drag, effectively neutralizing the core edge.
 
 ### Performance Summary
+
+#### Core Performance Metrics
+| Metric | Value |
+| :--- | :--- |
+| **Total Trades (T)** | 186 |
+| **Win Rate** | 56.5% |
+| **Total PnL** | $-526.21 |
+| **Max Drawdown** |  $-10,312.10 |
+| **Profit Factor** | 0.99 |
+| **Median Win** | $256.81 |
+| **Median Loss** | -$270.35 |
+| **Avg Win** |  $329.94 |
+| **Avg Loss** | -$434.20 |
+| **Avg R** | 0.00R |
+| **Total R** | -0.53R |
+
+#### Distribution of Exit Reasons
+| Exit Reason | Trades | Percentage |
+| :--- | :--- | :--- |
+| **time_exit** | 171 | 91.9% |
+| **stop_loss** | 8 | 4.3% |
+| **stop_loss_gap** | 6 | 3.2% |
+| **take_profit** | 1 | 0.5% |
+| **take_profit_gap** | 0 | 0.5% |
 
 *Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author.
