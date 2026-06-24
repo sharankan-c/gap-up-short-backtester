@@ -6,12 +6,12 @@ An event-driven quantitative backtesting framework in Python designed to evaluat
 ## Systematic Backtesting: Shorting Extreme Overnight Gap-Ups
 
 ### 1. Methodology & Data Collection
-The core objective of this backtest was to determine whether extreme overnight gap-ups serve as a statistically viable short setup within the recent market regime[cite: 1, 2]. To isolate a potential edge, US equities listed on the NASDAQ and NYSE were tracked over a six-month period, focusing exclusively on high-momentum catalysts where a stock opened significantly higher than its prior day's close[cite: 1, 2].
+The core objective of this backtest was to determine whether extreme overnight gap-ups serve as a statistically viable short setup within the recent market regime. To isolate a potential edge, US equities listed on the NASDAQ and NYSE were tracked over a six-month period, focusing exclusively on high-momentum catalysts where a stock opened significantly higher than its prior day's close.
 
 The infrastructure was built using a three-step pipeline:
-* **Data Ingestion:** Automated extraction of daily historical screener data directly from FinViz via a Python script to capture all equities hitting the target gap threshold[cite: 1, 2].
-* **Storage:** The raw scraped data is loaded directly into a pandas DataFrame in memory for immediate filtering and manipulation[cite: 1, 2].
-* **Historical Sourcing:** Programmatic connection to the Interactive Brokers API to retrieve historical price data for each screened ticker.[cite: 1, 2].
+* **Data Ingestion:** Automated extraction of daily historical screener data directly from FinViz via a Python script to capture all equities hitting the target gap threshold.
+* **Storage:** The raw scraped data is loaded directly into a pandas DataFrame in memory for immediate filtering and manipulation.
+* **Historical Sourcing:** Programmatic connection to the Interactive Brokers API to retrieve historical price data for each screened ticker.
 
 ### 2. Exploratory Data Analysis (EDA)
 Correlation and regression analyses were conducted across a wide array of features to determine if specific variables could reliably predict intraday price action (execution returns).
@@ -63,12 +63,12 @@ To avoid curve-fitting, parameter permutations were evaluated against a comprehe
 | **take_profit_gap** | 1 | 0.5% |
 
 ### 5. Key Analytical Takeaways & Future Optimization
-The empirical data confirms that a genuine structural edge exists[cite: 1, 2]. A Profit Factor of 1.08 and a positive total return of +3.12R demonstrate an underlying short bias[cite: 1, 2]. However, the strategy in its current form is highly inefficient for live execution and requires refinement across three critical vectors:
+The empirical data confirms that a genuine structural edge exists. A Profit Factor of 1.08 and a positive total return of +3.12R demonstrate an underlying short bias. However, the strategy in its current form is highly inefficient for live execution and requires refinement across three critical vectors:
 
-* **Sample Size & Regime Limitations:** A sample of 186 trades over 6 months is statistically thin and vulnerable to regime bias[cite: 1, 2].
-* **Time-Dominant Behavior & Filtering:** Since 89.8% of positions were liquidated via the time-based exit rule, the setup frequently traps capital in non-trending, choppy environments[cite: 1, 2]. Introducing structural filters—such as Relative Volume (RVOL) thresholds or separating fundamental catalysts (e.g., earnings surprises) from emotional ones (e.g., low-float retail FOMO)—is necessary to eliminate low-expectancy trades[cite: 1, 2].
-* **Risk Efficiency & Tighter Management:** The maximum drawdown (-$9,817.07) relative to total profit ($3,117.61) highlights substantial equity curve variance[cite: 1, 2]. Combined with a tight average expectancy of 0.02R, the initial risk boundaries are too wide[cite: 1, 2]. Tightening stop losses to structural intraday levels—such as the opening 5-minute High of Day (HOD)—and implementing conditional time-stops to exit early if a fade stalls will protect capital and scale the R:R ratio[cite: 1, 2].
+* **Sample Size & Regime Limitations:** A sample of 186 trades over 6 months is statistically thin and vulnerable to regime bias.
+* **Time-Dominant Behavior & Filtering:** Since 89.8% of positions were liquidated via the time-based exit rule, the setup frequently traps capital in non-trending, choppy environments. Introducing structural filters—such as Relative Volume (RVOL) thresholds or separating fundamental catalysts (e.g., earnings surprises) from emotional ones (e.g., low-float retail FOMO)—is necessary to eliminate low-expectancy trades.
+* **Risk Efficiency & Tighter Management:** The maximum drawdown (-$9,817.07) relative to total profit ($3,117.61) highlights substantial equity curve variance. Combined with a tight average expectancy of 0.02R, the initial risk boundaries are too wide. Tightening stop losses to structural intraday levels—such as the opening 5-minute High of Day (HOD)—and implementing conditional time-stops to exit early if a fade stalls will protect capital and scale the R:R ratio.
 
 ***
 
-*Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author[cite: 1, 2].*
+*Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author.
