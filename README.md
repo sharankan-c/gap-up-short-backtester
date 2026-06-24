@@ -105,4 +105,47 @@ The empirical data confirms that a genuine structural edge exists. A Profit Fact
 | **take_profit** | 1 | 0.5% |
 | **take_profit_gap** | 0 | 0.5% |
 
+## Update: Version 3 Results & Architecture (Structural Shifts & Accelerated Execution)
+
+Following the structural bottlenecks identified in Version 2, a third iteration (Version 3) was developed and tested against the 2-year historical dataset. This architecture completely eliminates execution drag, capitalizes on the higher gap threshold parameters, and transitions the system from a time-bound holding strategy into a highly efficient momentum-extraction vehicle.
+
+### Core Architecture & Parameter Changes
+
+* **Aggressive Gap Threshold:** Retained the higher, high-conviction gap threshold validated in isolated testing to capture only the most extreme overnight extensions.
+* **Immediate Execution Proximity:** The restrictive stalking window logic has been completely disabled (`OFF`). Execution triggers were pulled closer to the initial gap-open to capture immediate, high-velocity momentum.
+* **Truncated Holding Period:** The maximum duration parameter was cut short. Position exposure is strictly limited to eliminate the late-stage capital drift observed in previous iterations.
+* **Dynamic Structural Stops:** Replaced fixed risk parameters with a dynamic stop-loss protocol. Risk is managed based on structural price shifts on the daily timeframe, cutting trades immediately when price action invalidates the setup by clearing key structural boundaries or failing to sustain the downside expansion.
+
+### Performance Summary
+
+#### Core Performance Metrics
+| Metric | Value |
+| :--- | :--- |
+| **Total Trades (T)** | 189 |
+| **Win Rate** | 57.1% |
+| **Total PnL** |  $9,531.36 |
+| **Max Drawdown** | -$6,457.88 |
+| **Profit Factor** | 1.36 |
+| **Median Win** |    $253.62 |
+| **Median Loss** |   -$212.51 |
+| **Avg Win** | $333.75 |
+| **Avg Loss** |  -$327.33 |
+| **Avg R** |  0.20R |
+| **Total R** |  38.13R |
+
+#### Distribution of Exit Reasons
+| Exit Reason | Trades | Percentage |
+| :--- | :--- | :--- |
+| **time_exit** | 138 | 73.0% |
+| **stop_loss** | 27 | 14.3% |
+| **stop_loss_gap** | 23 | 12.2% |
+| **take_profit** | 1 | 0.5% |
+| **take_profit_gap** | 0 | 0.0% |
+
+
+
+
+> [!NOTE]
+> **Dynamic Database Scaling:** The performance metrics stated above represent a benchmark snapshot as of June 2026. Because the underlying historical database is actively scaling with daily ticker updates, subsequent backtest runs over the identical 2-year lookback horizon may show marginal variations in total trade count and absolute PnL metrics as sample density increases. The structural expectancy, however, remains robust.
+
 *Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author.
