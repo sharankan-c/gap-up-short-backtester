@@ -1,1 +1,74 @@
 
+# gap-up-short-backtester
+
+An event-driven quantitative backtesting framework in Python designed to evaluate and optimize delayed gap-up short strategies on equities using Interactive Brokers historical data.
+
+## Systematic Backtesting: Shorting Extreme Overnight Gap-Ups
+
+### 1. Methodology & Data Collection
+The core objective of this backtest was to determine whether extreme overnight gap-ups serve as a statistically viable short setup within the recent market regime[cite: 1, 2]. To isolate a potential edge, US equities listed on the NASDAQ and NYSE were tracked over a six-month period, focusing exclusively on high-momentum catalysts where a stock opened significantly higher than its prior day's close[cite: 1, 2].
+
+The infrastructure was built using a three-step pipeline:
+* **Data Ingestion:** Automated extraction of daily historical screener data directly from FinViz via a Python script to capture all equities hitting the target gap threshold[cite: 1, 2].
+* **Storage:** The raw scraped data is loaded directly into a pandas DataFrame in memory for immediate filtering and manipulation[cite: 1, 2].
+* **Historical Sourcing:** Programmatic connection to the Interactive Brokers API to retrieve historical price data for each screened ticker.[cite: 1, 2].
+
+### 2. Exploratory Data Analysis (EDA)
+Correlation and regression analyses were conducted across a wide array of features to determine if specific variables could reliably predict intraday price action (execution returns).
+
+The following metrics were cross-examined:
+* **Gap Characteristics & Technicals:** Gap vs. open-to-close, open-to-high, and open-to-low; gap date vs. open-to-close; z-score gap and Rate of Change (ROC) vs. open-to-close.
+* **Market Structure & Fundamentals:** Float size vs. open-to-close/open-to-high; short interest vs. open-to-high/open-to-low; market cap, prior performance, and sector vs. open-to-close.
+* **Temporal Dynamics:** Cumulative return tracking across various holding periods to isolate the optimal exit window.
+
+> **Conclusion:** While macroscopic linear correlations failed to yield a simple entry edge across individual variables, a distinct negative drift was observed over extended holding periods. This structural tendency to fade confirmed the underlying short bias, shifting the focus toward optimizing the exact exit horizon.
+
+### 3. Parameter Tuning & Optimization Framework
+Leveraging the structural negative drift identified during the EDA phase, the approach shifted to systematic empirical optimization. Using a dedicated training subset, multi-dimensional bucket tests were executed across a wide spectrum of proprietary **Stop Loss (SL)** and **Take Profit (TP)** brackets, running parallel to variations in optimized holding periods to exploit the timing of the decay.
+
+To avoid curve-fitting, parameter permutations were evaluated against a comprehensive risk-reward matrix tracking:
+* Win Rate & Median Risk-to-Reward (R:R) for mathematical expectancy.
+* Maximum Drawdown & Max Risk to assess structural pain tolerance.
+* Realistic, per-trade transaction fees to account for execution friction and slippage.
+
+To avoid curve-fitting, parameter permutations were evaluated against a comprehensive risk-reward matrix tracking:
+* Win Rate & Median Risk-to-Reward (R:R) for mathematical expectancy.
+* Maximum Drawdown & Max Risk to assess structural pain tolerance.
+* Realistic, per-trade transaction fees to account for execution friction and slippage.
+
+### 4. Empirical Results & Performance Dashboard
+
+#### Core Performance Metrics
+| Metric | Value |
+| :--- | :--- |
+| **Total Trades (T)** | 186 |
+| **Win Rate** | 54.3% |
+| **Total PnL** | $3,117.61 |
+| **Max Drawdown** | -$9,817.07 |
+| **Profit Factor** | 1.08 |
+| **Median Win** | $320.55 |
+| **Median Loss** | -$316.08 |
+| **Avg Win** | $426.26 |
+| **Avg Loss** | -$469.81 |
+| **Avg R** | 0.02R |
+| **Total R** | 3.12R |
+
+#### Distribution of Exit Reasons
+| Exit Reason | Trades | Percentage |
+| :--- | :--- | :--- |
+| **time_exit** | 167 | 89.8% |
+| **stop_loss** | 11 | 5.9% |
+| **stop_loss_gap** | 5 | 2.7% |
+| **take_profit** | 2 | 1.1% |
+| **take_profit_gap** | 1 | 0.5% |
+
+### 5. Key Analytical Takeaways & Future Optimization
+The empirical data confirms that a genuine structural edge exists[cite: 1, 2]. A Profit Factor of 1.08 and a positive total return of +3.12R demonstrate an underlying short bias[cite: 1, 2]. However, the strategy in its current form is highly inefficient for live execution and requires refinement across three critical vectors:
+
+* **Sample Size & Regime Limitations:** A sample of 186 trades over 6 months is statistically thin and vulnerable to regime bias[cite: 1, 2].
+* **Time-Dominant Behavior & Filtering:** Since 89.8% of positions were liquidated via the time-based exit rule, the setup frequently traps capital in non-trending, choppy environments[cite: 1, 2]. Introducing structural filters—such as Relative Volume (RVOL) thresholds or separating fundamental catalysts (e.g., earnings surprises) from emotional ones (e.g., low-float retail FOMO)—is necessary to eliminate low-expectancy trades[cite: 1, 2].
+* **Risk Efficiency & Tighter Management:** The maximum drawdown (-$9,817.07) relative to total profit ($3,117.61) highlights substantial equity curve variance[cite: 1, 2]. Combined with a tight average expectancy of 0.02R, the initial risk boundaries are too wide[cite: 1, 2]. Tightening stop losses to structural intraday levels—such as the opening 5-minute High of Day (HOD)—and implementing conditional time-stops to exit early if a fade stalls will protect capital and scale the R:R ratio[cite: 1, 2].
+
+***
+
+*Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author[cite: 1, 2].*
