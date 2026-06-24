@@ -71,4 +71,15 @@ The empirical data confirms that a genuine structural edge exists. A Profit Fact
 
 ***
 
+---
+
+## Appendix: Update (Juni 2026) — Version 2 Backtest
+## Update: Version 2 Backtest Results & Structural Analysis
+
+* A second iteration (Version 2) of the backtester was deployed to evaluate the impact of **modified holding periods** and **localized price action structural constraints** on execution quality. The objective was to filter out low-probability entries based on immediate post-gap structural boundaries.
+
+* The empirical results indicate that these additional filters introduced significant structural drag, effectively degrading the strategy's edge.
+
+### Performance Summary
+
 *Disclaimer: This document was written by AI acting strictly as a transcription and formatting tool. All core concepts, data, quantitative analysis, parameters, and structural conclusions were provided entirely by the human author.
